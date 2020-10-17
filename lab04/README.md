@@ -2,4 +2,4 @@
 
 
 
-[Análise de dados usando o Orange](notebook/lab04-nhanes.ipynb)
+[SQL no nhanes](notebook/lab04-nhanes.ipynb)
