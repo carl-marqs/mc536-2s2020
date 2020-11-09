@@ -2,4 +2,4 @@
 
 
 
-[Faers SQL](notebook/lab05-faers.ipynb)
+[Faers SQL](notebooks/lab05-faers.ipynb)
