@@ -49,9 +49,30 @@ ON MATCH SET r.weight=r.weight+1
 Construa um grafo ligando os medicamentos aos efeitos colaterais (com pesos associados) a partir dos registros das pessoas, ou seja, se uma pessoa usa um medicamento e ela teve um efeito colateral, o medicamento deve ser ligado ao efeito colateral.
 
 ### Resolução
+A partir da tabela [drug-use](data/drug-use.csv), são geradas as arestas entre pessoas e medicamentos (usando MERGE para evitar duplicatas):
+
 ~~~cypher
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/santanche/lab2learn/master/data/faers-2017/drug-use.csv' AS line
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/horodynskivitor/mc536-2s2020/development/lab06/data/drug-use.csv' AS line
 MERGE (p:Person {code: line.idperson})
+MERGE (d:Drug {code: line.codedrug})
+MERGE (p)-[:Takes]->(d)
+~~~
+
+Pela tabela [sideeffect](data/sideeffect.csv), relaciona-se pessoas aos seus efeitos colaterais:
+
+~~~cypher
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/horodynskivitor/mc536-2s2020/development/lab06/data/sideeffect.csv' AS line
+MERGE (p:Person {code: line.idPerson})
+MERGE (s:SideEffect {code: line.codePathology})
+MERGE (s)-[:Affects]->(p)
+~~~
+
+Por transitividade, pode-se relacionar drogas e efeitos colaterais:
+~~~cypher
+MATCH (s)-[:Affects]->(p)-[:Takes]->(d)
+MERGE (d)-[c:Causes]->(s)
+ON CREATE SET c.weight=1
+ON MATCH SET c.weight=c.weight+1
 ~~~
 
 ## Exercício 6
