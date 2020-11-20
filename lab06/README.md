@@ -82,6 +82,18 @@ Que tipo de análise interessante pode ser feita com esse grafo?
 Proponha um tipo de análise e escreva uma sentença em Cypher que realize a análise.
 
 ### Resolução
+Pode-se analisar o grafo visualmente, para observar os medicamentos que mais associados a efeitos colaterais:
 ~~~cypher
-(escreva aqui a resolução em Cypher)
+MATCH (d)-[c:Causes]->(s)
+WHERE c.weight>20
+RETURN d,s
+~~~
+
+Como o grafo gerado é bipartido, pode-se gerar uma projeção com relação aos medicamentos:
+
+~~~cypher
+MATCH (s1:SideEffect)<-[a]-(d:Drug)-[b]->(s2:SideEffect)
+MERGE (s1)<-[r:Relates]->(s2)
+ON CREATE SET r.weight=1
+ON MATCH SET r.weight=r.weight+1
 ~~~
