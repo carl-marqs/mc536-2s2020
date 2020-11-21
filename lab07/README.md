@@ -54,7 +54,7 @@ CALL gds.graph.create(
 )
 ~~~
 
-Aplicando o algoritmo de encontro de comunidades:
+Aplicando o algoritmo de determinação de comunidades:
 
 ~~~cypher
 CALL gds.louvain.stream('drugRelationGraph')
