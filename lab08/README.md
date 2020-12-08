@@ -96,8 +96,9 @@ return {data($d/@name), '&#xa;'}
 
 Apresente todas as classificações de um componente a sua escolha (diferente de `Acetylsalicylic Acid`) que estejam hierarquicamente dois níveis acima. Note que no exemplo dado em sala foi considerado um nível hierárquico acima.
 
-Para a droga "COCAINE":
 ### Resolução
+Para a droga "COCAINE":
+
 ~~~xquery
 let $dron := doc('https://raw.githubusercontent.com/santanche/lab2learn/master/data/faers-2017-dron/dron.xml')//drug
 
