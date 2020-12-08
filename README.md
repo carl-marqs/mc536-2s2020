@@ -17,3 +17,5 @@ Vitor Celso Horodynski Alves
 [lab06](lab06)
 
 [lab07](lab07)
+
+[lab08](lab08)
